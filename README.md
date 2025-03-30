@@ -84,4 +84,14 @@ The application uses Swagger for API documentation. To view the documentation:
 ## Testing
 Run the test suite using PHPUnit:
 
+` ./vendor/bin/sail artisan test `
 
+-----
+
+## License
+This project is licensed under the MIT License.
+
+-----
+
+## Contributors
+Marin Nikolli
