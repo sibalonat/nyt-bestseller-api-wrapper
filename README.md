@@ -72,8 +72,16 @@ API Endpoints
 The application uses Swagger for API documentation. To view the documentation:
 
 1. **Generate Swagger Documentation**:
+
 ` ./vendor/bin/sail artisan l5-swagger:generate `
 
 2. **Access Swagger UI**: Open your browser and navigate to: 
+
 ` http://localhost/api/documentation `
+
+-----
+
+## Testing
+Run the test suite using PHPUnit:
+
 
