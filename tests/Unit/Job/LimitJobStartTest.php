@@ -15,7 +15,7 @@ class LimitJobStartTest extends TestCase
     {
         // Arrange
         $job = Mockery::mock('stdClass');
-        $job->shouldNotReceive('release'); // The job should not be released
+        $job->shouldNotReceive('release');
 
         Redis::shouldReceive('throttle')
             ->once()
