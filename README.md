@@ -71,7 +71,9 @@ API Endpoints
 ## Swagger API Documentation
 The application uses Swagger for API documentation. To view the documentation:
 
-1. **Run Migrations**:Set up the database by running migrations: ` ./vendor/bin/sail artisan migrate `
+1. **Generate Swagger Documentation**:
+` ./vendor/bin/sail artisan l5-swagger:generate `
 
-2. **Generate Application Key**: ` ./vendor/bin/sail artisan key:generate `
+2. **Access Swagger UI**: Open your browser and navigate to: 
+` http://localhost/api/documentation `
 
