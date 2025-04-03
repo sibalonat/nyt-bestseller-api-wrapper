@@ -22,15 +22,14 @@ class BestSellerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'author' => 'string|nullable',
+            'author' => 'string|nullable|max:255',
             'isbn' => ['string', 'regex:/^(?:\d{10}|\d{13})$/'],
-            'title' => 'string|nullable',
-            'offset' => 'integer|nullable',
-            'age-group' => 'string|nullable',
-            'price' => 'string|nullable',
-            'publisher' => 'string|nullable',
-            'contributor' => 'string|nullable',
+            'title' => 'string|nullable|max:255',
+            'offset' => 'integer|nullable|min:0',
+            'age-group' => ['string', 'nullable', 'max:255', 'regex:/^[a-zA-Z\s\-]+$/'],
+            'price' => ['string', 'nullable', 'max:255', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'publisher' => 'string|nullable|max:255',
+            'contributor' => 'string|nullable|max:255',
         ];
-
     }
 }

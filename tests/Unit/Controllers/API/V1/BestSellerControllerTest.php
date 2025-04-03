@@ -200,7 +200,7 @@ class BestSellerControllerTest extends TestCase
     public function it_fails_validation_for_invalid_author()
     {
         // Arrange
-        $invalidData = ['author' => ['not_a_string']];
+        $invalidData = ['author' => str_repeat('a', 256)];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -214,7 +214,7 @@ class BestSellerControllerTest extends TestCase
     public function it_fails_validation_for_invalid_isbn()
     {
         // Arrange
-        $invalidData = ['isbn' => 'invalid_isbn'];
+        $invalidData = ['isbn' => ''];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -225,10 +225,24 @@ class BestSellerControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_fails_validation_for_invalid_title()
+    public function it_fails_validation_for_isbn_too_short()
     {
         // Arrange
-        $invalidData = ['title' => ['not_a_string']];
+        $invalidData = ['isbn' => '12345'];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['isbn']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_title_too_long()
+    {
+        // Arrange
+        $invalidData = ['title' => str_repeat('a', 256)];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -239,10 +253,10 @@ class BestSellerControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_fails_validation_for_invalid_offset()
+    public function it_fails_validation_for_negative_offset()
     {
         // Arrange
-        $invalidData = ['offset' => 'not_an_integer'];
+        $invalidData = ['offset' => -1];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -253,10 +267,10 @@ class BestSellerControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_fails_validation_for_invalid_age_group()
+    public function it_fails_validation_for_invalid_age_group_characters()
     {
         // Arrange
-        $invalidData = ['age-group' => ['not_a_string']];
+        $invalidData = ['age-group' => '123!@#'];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -267,10 +281,10 @@ class BestSellerControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_fails_validation_for_invalid_price()
+    public function it_fails_validation_for_invalid_price_format()
     {
         // Arrange
-        $invalidData = ['price' => ['not_a_string']];
+        $invalidData = ['price' => 'abc123'];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -281,10 +295,10 @@ class BestSellerControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_fails_validation_for_invalid_publisher()
+    public function it_fails_validation_for_publisher_too_long()
     {
         // Arrange
-        $invalidData = ['publisher' => ['not_a_string']];
+        $invalidData = ['publisher' => str_repeat('a', 256)];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
@@ -295,10 +309,10 @@ class BestSellerControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_fails_validation_for_invalid_contributor()
+    public function it_fails_validation_for_contributor_too_long()
     {
         // Arrange
-        $invalidData = ['contributor' => ['not_a_string']];
+        $invalidData = ['contributor' => str_repeat('a', 256)];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
