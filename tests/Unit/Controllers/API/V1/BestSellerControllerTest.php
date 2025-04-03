@@ -195,27 +195,117 @@ class BestSellerControllerTest extends TestCase
         Queue::assertPushed(FetchBestSellers::class);
     }
 
+    // #[Test]
     #[Test]
-    public function it_fails_validation_for_invalid_request_data()
+    public function it_fails_validation_for_invalid_author()
     {
         // Arrange
-        // author: Invalid: should be a string
-        // isbn: Invalid: does not match regex
-        // title: Invalid: should be a string
-        // offset: Invalid: should be an integer
-        $invalidData = [
-            'author' => ['not_a_string'],
-            'isbn' => 'invalid_isbn',
-            'title' => ['not_a_string'],
-            'offset' => 'not_an_integer',
-        ];
+        $invalidData = ['author' => ['not_a_string']];
 
         // Act
         $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
 
         // Assert
-        $response->assertStatus(422); // Unprocessable Entity
-        $response->assertJsonValidationErrors(['author', 'isbn', 'title', 'offset']);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['author']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_isbn()
+    {
+        // Arrange
+        $invalidData = ['isbn' => 'invalid_isbn'];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['isbn']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_title()
+    {
+        // Arrange
+        $invalidData = ['title' => ['not_a_string']];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['title']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_offset()
+    {
+        // Arrange
+        $invalidData = ['offset' => 'not_an_integer'];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['offset']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_age_group()
+    {
+        // Arrange
+        $invalidData = ['age-group' => ['not_a_string']];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['age-group']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_price()
+    {
+        // Arrange
+        $invalidData = ['price' => ['not_a_string']];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['price']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_publisher()
+    {
+        // Arrange
+        $invalidData = ['publisher' => ['not_a_string']];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['publisher']);
+    }
+
+    #[Test]
+    public function it_fails_validation_for_invalid_contributor()
+    {
+        // Arrange
+        $invalidData = ['contributor' => ['not_a_string']];
+
+        // Act
+        $response = $this->getJson('/api/v1/bestsellers?' . http_build_query($invalidData));
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['contributor']);
     }
 
     #[Test]
